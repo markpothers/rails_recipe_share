@@ -1,8 +1,8 @@
 class CreateFollows < ActiveRecord::Migration[5.2]
   def change
     create_table :follows do |t|
-      t.belongs_to :chef
-      t.belongs_to :follower, foreign_key: true
+      t.belongs_to :followee
+      t.belongs_to :follower
 
       t.timestamps
     end

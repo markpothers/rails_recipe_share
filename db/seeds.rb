@@ -6,44 +6,59 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
+# ActiveRecord::Migration.drop_table(:likes)
+# ActiveRecord::Migration.drop_table(:follows)
+# ActiveRecord::Migration.drop_table(:friendships)
+# ActiveRecord::Migration.drop_table(:recipes)
+# ActiveRecord::Migration.drop_table(:chefs)
+# ActiveRecord::Migration.drop_table(:ingredients)
+# ActiveRecord::Migration.drop_table(:ingredient_uses)
+# ActiveRecord::Migration.create_table(:likes)
+# ActiveRecord::Migration.create_table(:follows)
+# ActiveRecord::Migration.create_table(:friendships)
+# ActiveRecord::Migration.create_table(:recipes)
+# ActiveRecord::Migration.create_table(:chefs)
+# ActiveRecord::Migration.create_table(:ingredients)
+# ActiveRecord::Migration.create_table(:ingredient_uses)
 
-Likes.destroy_all
-Followers.destroy_all
-Friendships.destroy_all
-Ingredient_uses.destroy_all
-Recipes.destroy_all
-Ingredients.destroy_all
-Chefs.destroy_all
+Like.destroy_all
+Follow.destroy_all
+Friendship.destroy_all
+Ingredient_Use.destroy_all
+Recipe.destroy_all
+Chef.destroy_all
+Ingredient.destroy_all
 
-1000.times do
-    Ingredient.new(name: Faker::Food.ingredient)
+
+500.times do
+    Ingredient.create(name: Faker::Food.ingredient)
 end
 
 100.times do
-    Chef.new(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, username: Faker::Books::CultureSeries.planet, e_mail:Faker::Internet.email, country: Faker::Address.country)
+    Chef.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, username: Faker::Books::CultureSeries.planet, e_mail:Faker::Internet.email, country: Faker::Address.country)
 end
 
-1000.times do
-    Recipe.new(name: Faker::Food.dish, chef_id: Chef.all.sample)
+500.times do
+    Recipe.create(name: Faker::Food.dish, chef_id: Chef.all.sample.id)
 end
 
-1000.times do
-    Friendship.new(requestor_id: Chef.all.sample, acceptor_id: Chef.all.sample)
+200.times do
+    Friendship.create(requestor_id: Chef.all.sample.id, acceptor_id: Chef.all.sample.id)
 end
 
-1000.times do
-    Follow.new(chef_id: Chef.all.sample, follower_id: Chef.all.sample)
+200.times do
+    Follow.create(followee_id: Chef.all.sample.id, follower_id: Chef.all.sample.id)
 end
 
-10000.times do
-    Like.new(chef_id: Chef.all.sample, recipe_id: Recipe.all.sample)
+200.times do
+    Like.create(chef_id: Chef.all.sample.id, recipe_id: Recipe.all.sample.id)
 end
 
 5.times do
     Recipe.all.each do |recipe|
-        array = Faker::Food.measurement
-        array.split(" ")
-        Ingredient_Use.new(recipe_id: recipe.id, ingredeient_id: Ingredient.all.sample, quantity: array[0], unit: array[1])
+        string = Faker::Food.measurement
+        array = string.split(" ")
+        IngredientUse.create(recipe_id: recipe.id, ingredient_id: Ingredient.all.sample.id, quantity: array[0], unit: array[1])
     end
 end
 
