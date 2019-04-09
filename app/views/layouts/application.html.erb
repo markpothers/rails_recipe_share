@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RecipeShare</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <%=link_to 'Recipe Share', home_url%>
+      <%=link_to 'Chefs', chefs_url%>
+      <%=link_to 'Recipes', recipes_url%>
+      <%=link_to 'Ingredients', ingredients_url%>
+      <%=link_to 'Ingredient Uses', ingredient_uses_url%>
+      <%=link_to 'Friendships', friendships_url%>
+      <%=link_to 'Follows', follows_url%>
+      <%=link_to 'Likes', likes_url%>
+    </header>
+      <%= yield %>
+  </body>
+</html>
